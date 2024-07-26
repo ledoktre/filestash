@@ -146,7 +146,7 @@ async function ctrlExistingShare(render, { load, remove, all, formLinks }) {
                 </div>
             `);
             qsa($share, ".copy").forEach(($el) => $el.onclick = () => {
-                const link = location.origin + forwardURLParams(toHref(`/s/${shareObj.id}`), ["share"]);
+                const link = location.origin + forwardURLParams(toHref(`/k/${shareObj.id}`), ["share"]);
                 copyToClipboard(link);
                 notification.info(t("The link was copied in the clipboard"));
             });
@@ -172,7 +172,7 @@ async function ctrlCreateShare(render, { save, formState }) {
             <h2 class="no-select pointer">${t("Advanced")}<span><img class="component_icon" draggable="false" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgPHBhdGggc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MC41MzMzMzMyMSIgZD0ibSA3LjcwNSw4LjA0NSA0LjU5LDQuNTggNC41OSwtNC41OCAxLjQxLDEuNDEgLTYsNiAtNiwtNiB6IiAvPgogIDxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wLS4yNWgyNHYyNEgweiIgLz4KPC9zdmc+Cg==" alt="arrow_bottom"></span></h2>
             <form class="share--content restrictions no-select"></form>
             <div class="shared-link">
-                <input name="create" class="copy" type="text" readonly="" value="${location.origin}${toHref("/s/" + id)}">
+                <input name="create" class="copy" type="text" readonly="" value="${location.origin}${toHref("/k/" + id)}">
                 <button title="Copy URL">
                     <img class="component_icon" draggable="false" src="${IMAGE.COPY}" alt="copy">
                 </button>
@@ -273,7 +273,7 @@ async function ctrlCreateShare(render, { save, formState }) {
     // sync editable custom link input with link id
     effect(rxjs.fromEvent(qs($form, `[name="url"]`), "keyup").pipe(rxjs.tap((e) => {
         id = e.target.value.replaceAll(" ", "-").replace(new RegExp("[^A-Za-z\-]"), "");
-        qs(assert.type($form.closest(".component_share"), window.HTMLElement), `input[name="create"]`).value = `${location.origin}${toHref("/s/" + id)}`;
+        qs(assert.type($form.closest(".component_share"), window.HTMLElement), `input[name="create"]`).value = `${location.origin}${toHref("/k/" + id)}`;
     })));
 
     // feature: create a shared link
@@ -287,7 +287,7 @@ async function ctrlCreateShare(render, { save, formState }) {
                     return acc;
                 }, { id });
             $copy.setAttribute("src", IMAGE.LOADING);
-            const link = location.origin + forwardURLParams(toHref(`/s/${id}`), ["share"]);
+            const link = location.origin + forwardURLParams(toHref(`/k/${id}`), ["share"]);
             await save(body);
             copyToClipboard(link);
             notification.info(t("The link was copied in the clipboard"));

@@ -79,12 +79,12 @@ func Build(a App) *mux.Router {
 	// Webdav server / Shared Link
 	middlewares = []Middleware{IndexHeaders, SecureHeaders, PluginInjector}
 	if os.Getenv("CANARY") == "" { // TODO: remove once migration is done
-		r.HandleFunc(WithBase("/s/{share}"), NewMiddlewareChain(LegacyIndexHandler, middlewares, a)).Methods("GET")
+		r.HandleFunc(WithBase("/k/{share}"), NewMiddlewareChain(LegacyIndexHandler, middlewares, a)).Methods("GET")
 	} else {
-		r.HandleFunc(WithBase("/s/{share}"), NewMiddlewareChain(ServeFrontofficeHandler, middlewares, a)).Methods("GET")
+		r.HandleFunc(WithBase("/k/{share}"), NewMiddlewareChain(ServeFrontofficeHandler, middlewares, a)).Methods("GET")
 	}
 	middlewares = []Middleware{WebdavBlacklist, SessionStart, PluginInjector}
-	r.PathPrefix(WithBase("/s/{share}")).Handler(NewMiddlewareChain(WebdavHandler, middlewares, a))
+	r.PathPrefix(WithBase("/k/{share}")).Handler(NewMiddlewareChain(WebdavHandler, middlewares, a))
 	middlewares = []Middleware{ApiHeaders, SecureHeaders, RedirectSharedLoginIfNeeded, SessionStart, LoggedInOnly, PluginInjector}
 	r.PathPrefix(WithBase("/api/export/{share}/{mtype0}/{mtype1}")).Handler(NewMiddlewareChain(FileExport, middlewares, a))
 

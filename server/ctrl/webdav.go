@@ -52,7 +52,7 @@ func WebdavHandler(ctx *App, res http.ResponseWriter, req *http.Request) {
 	}
 
 	h := &webdav.Handler{
-		Prefix:     "/s/" + ctx.Share.Id,
+		Prefix:     "/k/" + ctx.Share.Id,
 		FileSystem: model.NewWebdavFs(ctx.Backend, ctx.Share.Backend, ctx.Share.Path, req),
 		LockSystem: model.NewWebdavLock(),
 	}

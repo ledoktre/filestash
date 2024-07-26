@@ -15,7 +15,7 @@ import notification from "../components/notification.js";
 import ctrlError from "./ctrl_error.js";
 
 export default function(render) {
-    const shareID = location.pathname.replace(toHref("/s/"), "");
+    const shareID = location.pathname.replace(toHref("/k/"), "");
     const state$ = new rxjs.BehaviorSubject({ step: null });
     const setState = (newState) => state$.next(newState);
 

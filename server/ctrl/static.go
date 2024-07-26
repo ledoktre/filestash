@@ -49,7 +49,7 @@ func LegacyIndexHandler(ctx *App, res http.ResponseWriter, req *http.Request) { 
 	if url != URL_SETUP && Config.Get("auth.admin").String() == "" {
 		http.Redirect(res, req, URL_SETUP, http.StatusTemporaryRedirect)
 		return
-	} else if url != "/" && strings.HasPrefix(url, "/s/") == false &&
+	} else if url != "/" && strings.HasPrefix(url, "/k/") == false &&
 		strings.HasPrefix(url, "/view/") == false && strings.HasPrefix(url, "/files/") == false &&
 		url != "/login" && url != "/logout" && strings.HasPrefix(url, "/admin") == false && strings.HasPrefix(url, "/tags") == false {
 		NotFoundHandler(ctx, res, req)
@@ -221,7 +221,7 @@ func ServeFrontofficeHandler(ctx *App, res http.ResponseWriter, req *http.Reques
 		return
 	}
 	url := TrimBase(req.URL.Path)
-	if url != "/" && strings.HasPrefix(url, "/s/") == false &&
+	if url != "/" && strings.HasPrefix(url, "/k/") == false &&
 		strings.HasPrefix(url, "/view/") == false && strings.HasPrefix(url, "/files/") == false &&
 		url != "/login" && url != "/logout" && strings.HasPrefix(url, "/tags") == false {
 		NotFoundHandler(ctx, res, req)
