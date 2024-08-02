@@ -33,7 +33,7 @@ export const URL_TAGS = "/tags";
 
 export const URL_ADMIN = "/admin";
 
-export const URL_SHARE = "/s";
+export const URL_SHARE = "/f";
 
 function encode_path(path) {
     if (/%2F/.test(path) === false) { // replace slash to make url more friendly
